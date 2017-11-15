@@ -11,6 +11,6 @@ Viper.compileAll(FILENAME, function(compiled_contract) {
 	abi = JSON.parse(compiled_contract['abi'])
 	bytecode = '0x' + compiled_contract['bytecode']
 	// do whatever you want
-	```
+```
 
 TODO: Find out why viper contract costs so much for deployment. 
