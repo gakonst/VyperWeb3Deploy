@@ -1,0 +1,16 @@
+{
+  "name": "viperjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Viper-Wrapper.js",
+  "dependencies": {
+    "command-line-args": "^4.0.7",
+    "web3": "^0.20.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
