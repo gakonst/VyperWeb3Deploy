@@ -6,25 +6,25 @@ function execute(command, callback){
 
 VIPER_PATH = '`which viper`'
 
-compileAbi = function(fileName, callback){
-    execute(VIPER_PATH + " -f json " + fileName, function(res){
+compileAbi = function(FILE_PATH, callback){
+    execute(VIPER_PATH + " -f json " + FILE_PATH, function(res){
 		callback(res);
 	});
 };
 
-compileBytecode = function(fileName, callback){
-    execute(VIPER_PATH + " -f bytecode " + fileName, function(res){
+compileBytecode = function(FILE_PATH, callback){
+    execute(VIPER_PATH + " -f bytecode " + FILE_PATH, function(res){
 		callback(res);
 	});};
 
-compileIr = function(fileName, callback){
-    execute(VIPER_PATH + " -f ir " + fileName, function(res){
+compileIr = function(FILE_PATH, callback){
+    execute(VIPER_PATH + " -f ir " + FILE_PATH, function(res){
 		callback(res);
 	});};
 
-compileAll = function(fileName, callback){
-	compileAbi(fileName, function(abi) {
-		compileBytecode(fileName, function(bytecode) {
+compileAll = function(FILE_PATH, callback){
+	compileAbi(FILE_PATH, function(abi) {
+		compileBytecode(FILE_PATH, function(bytecode) {
 			callback({abi, bytecode});
 			});
 		});

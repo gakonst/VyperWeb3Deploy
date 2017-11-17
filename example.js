@@ -25,11 +25,12 @@ if (options['host']) {
 Deployer.deployContract(FILENAME, RPC_ADDRESS, function(contractInstance) {
 
 	greeter = contractInstance
+	console.log("[!] Testing if greeter.greet() == 'Hello World'")
 	hello_world = greeter.greet.call()
 	if (hello_world !== '0x48656c6c6f20576f726c64') { // hex encoding of 'Hello World'
-		console.log( 'not hex of Hello World')
+		console.log( '[-] not hex of Hello World')
 	} else {
-	console.log("Success! Your contract compiled and worked as expected.")
+	console.log("[+] Success! Your contract compiled and worked as expected.")
 	}
 
 });
