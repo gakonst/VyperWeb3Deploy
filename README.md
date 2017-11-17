@@ -24,7 +24,7 @@ node example.js -f contracts/greeter.v.py -h http://localhost:7545
 
 ## Viper compiler wrapper for Javascript
 ```javascript
-Viper = require("./Wrapper.js")
+Viper = require("./utils/Wrapper.js")
 Viper.compileAll(FILENAME, function(compiled_contract) {
 	abi = JSON.parse(compiled_contract['abi'])
 	bytecode = '0x' + compiled_contract['bytecode']
