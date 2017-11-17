@@ -1,4 +1,4 @@
-Deploy = require("./utils/Deployer.js")
+Deployer = require("./utils/Deployer.js")
 
 /* Set command line arguments */
 const commandLineArgs = require('command-line-args')
@@ -22,7 +22,7 @@ if (options['host']) {
 	RPC_ADDRESS = "http://localhost:8545"	
 } 
 
-Deploy.deployContract(FILENAME, RPC_ADDRESS, function(contractInstance) {
+Deployer.deployContract(FILENAME, RPC_ADDRESS, function(contractInstance) {
 
 	greeter = contractInstance
 	hello_world = greeter.greet.call()
