@@ -6,5 +6,5 @@ def __init__():
 
 # A read only method. Reading from the EVM is free. Writing costs Gas
 @constant
-def speak() -> bytes <= 100:
+def greet() -> bytes <= 100:
     return self.phrase
