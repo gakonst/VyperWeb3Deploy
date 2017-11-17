@@ -1,9 +1,10 @@
 ### Viper Web3 Deploy
 Requires Viper (https://github.com/ethereum/viper/) installed (https://viper.readthedocs.io/en/latest/installing-viper.html)
 
-Includes Viper-Wrapper.js:
-Wrapper for the Viper compiler for javascript
-Ideally this can be used to integrate Viper contracts in truffle-compile (https://github.com/trufflesuite/truffle-compile/)
+Javascript wrapper for the Viper Compiler: ./utils/Wrapper.js:
+Automatic web3 deployment of contract by bytecode/abi: ./utils/Deployer.js
+
+Ideally this can be used to integrate Viper contracts in truffle-compile (https://github.com/trufflesuite/truffle-compile/) and thus in truffle-framework
 
 ### Installing
 ```
@@ -18,6 +19,7 @@ node example.js -f contracts/greeter.v.py -h http://localhost:7545
 
 
 ### Usage:
+
 ## Viper compiler wrapper for Javascript
 ```javascript
 Viper = require("./Wrapper.js")
@@ -25,6 +27,7 @@ Viper.compileAll(FILENAME, function(compiled_contract) {
 	abi = JSON.parse(compiled_contract['abi'])
 	bytecode = '0x' + compiled_contract['bytecode']
 	// do whatever you want
+});
 ```
 
 ## Automatic Deployment
