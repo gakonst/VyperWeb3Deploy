@@ -1,10 +1,23 @@
-phrase: bytes <= 100
+# Greeter.vy
+# -----------( T. Leijtens, v1.0, Nov 2017 )
 
-# The constructor is only called on deployment
-def __init__():
-    self.phrase = 'Hello World'
+greeting: public(bytes <= 20)
 
-# A read only method. Reading from the EVM is free. Writing costs Gas
+@public
+def __init__(_greeting: bytes <= 20):
+	self.greeting = _greeting
+
+@public
+@payable
+def setGreeting(_greeting: bytes <= 20):
+	self.greeting = _greeting
+
+@public
 @constant
-def greet() -> bytes <= 100:
-    return self.phrase
+def greet() -> bytes <= 20:
+	return self.greeting
+
+@public
+@constant
+def sayHello() -> bytes <= 20:
+	return "Hello" 

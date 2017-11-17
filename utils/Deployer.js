@@ -1,6 +1,6 @@
 // FILENAME path to contract
 // RPC_ADDRESS IP:PORT of your node's JSON-RPC interface
-deployContract = function(FILENAME, RPC_ADDRESS, callback) {
+deployContract = function(FILENAME, RPC_ADDRESS, GAS, PARAMETER, callback) {
 	// Load Viper compiler wrapper
 	const Viper = require('./Wrapper.js');
 	// Start compilation of contract
@@ -24,10 +24,9 @@ deployContract = function(FILENAME, RPC_ADDRESS, callback) {
 		contract = web3.eth.contract(abi);
 
 		// deploy contract - Gas used: 182704 with Ganache testrpc
-		// https://ethereum.stackexchange.com/questions/6132/what-are-the-arguments-to-new-from-a-contract-object
-		contractInstance = contract.new(/* CONSTUCTOR ARGS ,*/ { 
+		contractInstance = contract.new( PARAMETER, { 
 			from: web3.eth.accounts[0], 
-			gas: 3000000,
+			gas: GAS,
 			data: bytecode
 		}, function(err, myContract) {
     		if(!err) {
@@ -38,20 +37,15 @@ deployContract = function(FILENAME, RPC_ADDRESS, callback) {
        			if(!myContract.address) {
 					receipt = web3.eth.getTransactionReceipt(contractInstance.transactionHash)
 					console.log("[+] TX Hash:", contractInstance.transactionHash)
-	           		//console.log(myContract.transactionHash) // The hash of the transaction, which deploys the contract
        
        			// check address on the second call (contract deployed)
        			} else {
-					address = myContract.address //receipt.contractAddress
+					address = myContract.address
 					console.log("[+] Contract deployed at:", address)
-           			//console.log(myContract.address) // the contract address
 
 					contract = contract.at(address)
 					callback(contract)
        			}	
-
-       		// Note that the returned "myContractReturned" === "myContract",
-       		// so the returned "myContractReturned" object will also get the address set.
     		}
   		});
 	})

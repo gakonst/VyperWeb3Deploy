@@ -5,6 +5,8 @@ const commandLineArgs = require('command-line-args')
 
 const optionDefinitions = [
 	{ name: 'filename', alias: 'f', type: String},
+	{ name: 'arguments', alias: 'a', type: String},
+	{ name: 'gas', alias: 'g', type: String},
 	{ name: 'host', alias: 'h', type: String}
 ]
 const options = commandLineArgs(optionDefinitions)
@@ -22,7 +24,19 @@ if (options['host']) {
 	RPC_ADDRESS = "http://localhost:8545"	
 } 
 
-Deployer.deployContract(FILENAME, RPC_ADDRESS, function(contractInstance) {
+if (options['arguments']) {
+	PARAMETERS = options['arguments'];
+} else {
+	PARAMETERS = "Hello World"	
+} 
+
+if (options['gas']) {
+	GAS = options['gas'];
+} else {
+	GAS = 300000	
+} 
+
+Deployer.deployContract(FILENAME, RPC_ADDRESS, GAS, PARAMETERS, function(contractInstance) {
 
 	greeter = contractInstance
 	console.log("[!] Testing if greeter.greet() == 'Hello World'")
