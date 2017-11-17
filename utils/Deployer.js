@@ -27,20 +27,33 @@ deployContract = function(FILENAME, RPC_ADDRESS, callback) {
 		// https://ethereum.stackexchange.com/questions/6132/what-are-the-arguments-to-new-from-a-contract-object
 		contractInstance = contract.new(/* CONSTUCTOR ARGS ,*/ { 
 			from: web3.eth.accounts[0], 
-			gas: 185000,
+			gas: 3000000,
 			data: bytecode
-		})
+		}, function(err, myContract) {
+    		if(!err) {
+       			// NOTE: The callback will fire twice!
+       			// Once the contract has the transactionHash property set and once its deployed on an address.
 
-		// normally need to wait here until tx receipt is available
-		// https://ethereum.stackexchange.com/questions/9636/whats-the-proper-way-to-wait-for-a-transaction-to-be-mined-and-get-the-results
-		receipt = web3.eth.getTransactionReceipt(contractInstance.transactionHash)
-		console.log("[+] TX Hash:", contractInstance.transactionHash)
-		address = receipt.contractAddress
-		console.log("[+] Contract deployed at:", address)
+       			// e.g. check tx hash on the first call (transaction send)
+       			if(!myContract.address) {
+					receipt = web3.eth.getTransactionReceipt(contractInstance.transactionHash)
+					console.log("[+] TX Hash:", contractInstance.transactionHash)
+	           		//console.log(myContract.transactionHash) // The hash of the transaction, which deploys the contract
+       
+       			// check address on the second call (contract deployed)
+       			} else {
+					address = myContract.address //receipt.contractAddress
+					console.log("[+] Contract deployed at:", address)
+           			//console.log(myContract.address) // the contract address
 
-		contract = contract.at(address)
-		callback(contract)
+					contract = contract.at(address)
+					callback(contract)
+       			}	
 
+       		// Note that the returned "myContractReturned" === "myContract",
+       		// so the returned "myContractReturned" object will also get the address set.
+    		}
+  		});
 	})
 }
 
