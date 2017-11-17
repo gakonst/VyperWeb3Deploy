@@ -24,7 +24,8 @@ deployContract = function(FILENAME, RPC_ADDRESS, callback) {
 		contract = web3.eth.contract(abi);
 
 		// deploy contract - Gas used: 182704 with Ganache testrpc
-		contractInstance = contract.new({ 
+		// https://ethereum.stackexchange.com/questions/6132/what-are-the-arguments-to-new-from-a-contract-object
+		contractInstance = contract.new(/* CONSTUCTOR ARGS ,*/ { 
 			from: web3.eth.accounts[0], 
 			gas: 185000,
 			data: bytecode
