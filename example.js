@@ -36,16 +36,21 @@ if (options['gas']) {
 	GAS = 300000	
 } 
 
-Deployer.deployContract(FILENAME, RPC_ADDRESS, GAS, PARAMETERS, function(contractInstance) {
+const Web3 = require('web3');
+const web3 = new Web3(new Web3.providers.HttpProvider(RPC_ADDRESS));
 
-	greeter = contractInstance
-	console.log("[!] Testing if greeter.greet() == 'Hello World'")
-	hello_world = greeter.greet.call()
-	if (hello_world !== '0x48656c6c6f20576f726c64') { // hex encoding of 'Hello World'
-		console.log( '[-] not hex of Hello World')
-	} else {
-	console.log("[+] Success! Your contract compiled and worked as expected.")
-	}
+Deployer.deployContract(FILENAME, RPC_ADDRESS, GAS, 'Hello World', function(contractInstance) {
+
+	greeter = contractInstance;
+
+	greeting = greeter.greet.call();
+	console.log("[-->] Initial greeting:", web3.toAscii(greeting))
+
+	console.log("[+] Setting new greeting...")
+	greeter.setGreeting(PARAMETERS, {from: web3.eth.accounts[0], gas: GAS});
+	
+	greeting = greeter.greet.call()
+	console.log("[--> New Greeting:", web3.toAscii(greeting))
 
 });
 
