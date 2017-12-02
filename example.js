@@ -53,8 +53,10 @@ Deployer.deployContract(FILENAME, RPC_ADDRESS, GAS, "Initial Greetings!", functi
 	var myEvent = contract.Newgreeting({eventType: 1},{fromBlock: 0, toBlock: 'latest'});
     myEvent.watch(function(error, result){
 
-		myEvent.stopWatching();
-		console.log("[--> New Greeting:", web3.toAscii(result.args._newgreeting));
+    	if ( !error) {
+			myEvent.stopWatching();
+			console.log("[--> New Greeting:", web3.toAscii(result.args._newgreeting));
+		}
     });
 
 });
