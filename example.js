@@ -27,30 +27,36 @@ if (options['host']) {
 if (options['arguments']) {
 	PARAMETERS = options['arguments'];
 } else {
-	PARAMETERS = "Hello World"	
+	PARAMETERS = "Hello World"
 } 
 
 if (options['gas']) {
 	GAS = options['gas'];
 } else {
-	GAS = 300000	
+	GAS = 500000	
 } 
 
 const Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(RPC_ADDRESS));
 
-Deployer.deployContract(FILENAME, RPC_ADDRESS, GAS, 'Hello World', function(contractInstance) {
+Deployer.deployContract(FILENAME, RPC_ADDRESS, GAS, "Initial Greetings!", function(contractInstance) {
 
 	greeter = contractInstance;
 
 	greeting = greeter.greet.call();
-	console.log("[-->] Initial greeting:", web3.toAscii(greeting))
+	console.log("[-->] Initial greeting:", web3.toAscii(greeting));
 
-	console.log("[+] Setting new greeting...")
+	console.log("[+] Setting new greeting...");
+
 	greeter.setGreeting(PARAMETERS, {from: web3.eth.accounts[0], gas: GAS});
-	
-	greeting = greeter.greet.call()
-	console.log("[--> New Greeting:", web3.toAscii(greeting))
+
+	var myEvent = contract.Newgreeting({eventType: 1},{fromBlock: 0, toBlock: 'latest'});
+    myEvent.watch(function(error, result){
+
+    	if ( !error) {
+			myEvent.stopWatching();
+			console.log("[--> New Greeting:", web3.toAscii(result.args._newgreeting));
+		}
+    });
 
 });
-
