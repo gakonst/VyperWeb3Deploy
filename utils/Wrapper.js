@@ -4,7 +4,7 @@ function execute(command, callback){
     exec(command, function(error, stdout, stderr){ callback(stdout); });
 };
 
-VIPER_PATH = '`which viper`'
+VIPER_PATH = '`which vyper`'
 
 compileAbi = function(FILE_PATH, callback){
     execute(VIPER_PATH + " -f json " + FILE_PATH, function(res){
