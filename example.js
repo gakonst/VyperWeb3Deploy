@@ -55,7 +55,7 @@ Deployer.deployContract(FILENAME, RPC_ADDRESS, GAS, "Initial Greetings!", functi
 
     	if ( !error) {
 			myEvent.stopWatching();
-			console.log("[--> New Greeting:", web3.toAscii(result.args._newgreeting));
+			console.log("[-->] New Greeting:", web3.toAscii(result.args._newgreeting));
 		}
     });
 
