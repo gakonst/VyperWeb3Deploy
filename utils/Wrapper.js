@@ -4,21 +4,21 @@ function execute(command, callback){
     exec(command, function(error, stdout, stderr){ callback(stdout); });
 };
 
-VIPER_PATH = '`which viper`'
+VYPER_PATH = '`which vyper`'
 
 compileAbi = function(FILE_PATH, callback){
-    execute(VIPER_PATH + " -f json " + FILE_PATH, function(res){
+    execute(VYPER_PATH + " -f json " + FILE_PATH, function(res){
 		callback(res);
 	});
 };
 
 compileBytecode = function(FILE_PATH, callback){
-    execute(VIPER_PATH + " -f bytecode " + FILE_PATH, function(res){
+    execute(VYPER_PATH + " -f bytecode " + FILE_PATH, function(res){
 		callback(res);
 	});};
 
 compileIr = function(FILE_PATH, callback){
-    execute(VIPER_PATH + " -f ir " + FILE_PATH, function(res){
+    execute(VYPER_PATH + " -f ir " + FILE_PATH, function(res){
 		callback(res);
 	});};
 

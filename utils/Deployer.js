@@ -1,10 +1,10 @@
 // FILENAME path to contract
 // RPC_ADDRESS IP:PORT of your node's JSON-RPC interface
 deployContract = function(FILENAME, RPC_ADDRESS, GAS, PARAMETER, callback) {
-	// Load Viper compiler wrapper
-	const Viper = require('./Wrapper.js');
+	// Load Vyper compiler wrapper
+	const Vyper = require('./Wrapper.js');
 	// Start compilation of contract
-	Viper.compileAll(FILENAME, function(compiled_contract) {
+	Vyper.compileAll(FILENAME, function(compiled_contract) {
 
 		// get contract abi
 		abi = compiled_contract['abi']
