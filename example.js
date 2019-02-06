@@ -44,7 +44,7 @@ Deployer.deployContract(FILENAME, RPC_ADDRESS, GAS, "Initial Greetings!", functi
 	greeter = contractInstance;
 
 	greeting = greeter.greet.call();
-	console.log("[-->] Initial greeting:", web3.toAscii(greeting));
+	console.log("[-->] Initial greeting:", greeting);
 
 	console.log("[+] Setting new greeting...");
 
@@ -55,7 +55,7 @@ Deployer.deployContract(FILENAME, RPC_ADDRESS, GAS, "Initial Greetings!", functi
 
     	if ( !error) {
 			myEvent.stopWatching();
-			console.log("[-->] New Greeting:", web3.toAscii(result.args._newgreeting));
+			console.log("[-->] New Greeting:", result.args._newgreeting, " msg_sender:", result.args._sender);
 		}
     });
 
